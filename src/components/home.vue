@@ -90,8 +90,14 @@ input {
 }
 
 .inner {
-  width: 300%;
+  width: 280%;
   line-height: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .inner {
+    width: 1100%;
+  }
 }
 
 article {
