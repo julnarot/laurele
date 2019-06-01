@@ -72,7 +72,23 @@ export default {
   methods: {
     goTodetail (proId) {
       this.$router.push({name: 'details', params: {Pid: proId}})
+    },
+    getModule () {
+      console.log('gettingzzzzzz')
+      this.$store.dispatch('a/obtainModule')
+      /* .then(response => {
+          // console.log(response.data) // shows the user data good stuff
+          console.log('Got some user data, now lets show something with it', response)
+        }, () => {
+          // console.log(error.response) // shows the API error invalid credentials type junk
+          console.log('Got nothing for this user except bad news.')
+        }) */
     }
+  },
+  beforeMount () {
+  },
+  created () {
+    this.getModule()
   }
 }
 </script>

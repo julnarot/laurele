@@ -13,9 +13,58 @@ Vue.use(Vuex)
 Vue.use(VueAxios)
 Vue.use(axios)
 
+const idModule = '1'
+
 Vue.config.productionTip = false
-// const urlApi = 'http://localhost:8000/'
+const urlApi = 'https://jcmsresource.herokuapp.com/'
+
+const mainEndPoints = {
+  auth: {
+    obtainToken: 'auth/obtain_token/',
+    refleshToken: 'auth/refresh_token'
+  },
+  setup: {
+    modules: 'setup/module/',
+    pages: 'setup/page/'
+  }
+}
+/*
+const config = {
+  headers: {
+    accept: 'application/json'
+  },
+  data: {}
+}
+*/
+
+const modulesModule = {
+  namespaced: true,
+  state: {
+    module: {}
+  },
+  mutations: {
+    updateModule (state, newModule) {
+      state.module = newModule
+    }
+  },
+  actions: {
+    obtainModule () {
+      axios.get(urlApi + mainEndPoints.setup.modules + idModule + '/')
+        .then((response) => {
+          console.log('getting module', response)
+          this.commit('updateModule', response.data.token)
+        })
+        .catch((error) => {
+          console.log(error, store)
+        })
+    }
+  },
+  getters: {}
+}
 const store = new Vuex.Store({
+  modules: {
+    a: modulesModule
+  },
   state: {
     jwt: localStorage.getItem('t'),
     endpoints: {
@@ -98,6 +147,10 @@ const store = new Vuex.Store({
     }
   }
 })
+axios.defaults.headers.get['Content-Type'] = 'application/json;charset=utf-8'
+
+const m = store.state.contador
+console.log(m)
 
 /* eslint-disable no-new */
 new Vue({
