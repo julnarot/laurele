@@ -5,15 +5,7 @@ import Blog from '@/components/blog'
 import Contact from '@/components/contact'
 import Services from '@/components/services'
 import Details from '@/components/details'
-import VueResource from 'vue-resource'
-// import HelloWorld from '@/components/HelloWorld'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-
 Vue.use(Router)
-Vue.use(VueResource)
-Vue.use(VueMaterial)
-Vue.material.locale.dateFormat = 'dd/MM/yyyy'
 export default new Router({
   routes: [
     {

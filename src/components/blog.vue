@@ -35,13 +35,13 @@ export default {
       console.log('hola mundo', this.$store)
     },
     decrement () {
-      this.$store.commit('decrement')
+      this.$store.commit('interceptor/decrement')
     },
     increment () {
       const num = Number(this.numero)
       // if (typeof(num)==='number' && !isNaN(num)) {
       if (num) {
-        this.$store.commit('incrementByValue', Number(this.numero))
+        this.$store.commit('interceptor/incrementByValue', Number(this.numero))
       } else {
         setTimeout(() => {
           this.numero = ''
@@ -53,7 +53,7 @@ export default {
       }
     },
     login () {
-      this.$store.dispatch('obtainToken', {username: this.username, password: this.password})
+      this.$store.dispatch('interceptor/obtainToken', {username: this.username, password: this.password})
         .then(response => {
           // console.log(response.data) // shows the user data good stuff
           console.log('Got some user data, now lets show something with it', response)
@@ -64,14 +64,14 @@ export default {
     }
   },
   isLoged: function () {
-    this.onSession = this.$store.getters.isLoged
+    this.onSession = this.$store.getters['interceptor/isLoged']
   },
   computed: {
     contador: function () {
-      return this.$store.getters.obtenerContador
+      return this.$store.getters['interceptor/obtenerContador']
     },
     onSession: function () {
-      return !this.$store.getters.isLoged
+      return !this.$store.getters['interceptor/isLoged']
     }
   }
 }

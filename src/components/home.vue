@@ -74,8 +74,8 @@ export default {
       this.$router.push({name: 'details', params: {Pid: proId}})
     },
     getModule () {
-      console.log('gettingzzzzzz')
-      this.$store.dispatch('a/obtainModule')
+      console.log('gettingzzzzzz', this.$store)
+      this.$store.dispatch('modules/obtainModule')
       /* .then(response => {
           // console.log(response.data) // shows the user data good stuff
           console.log('Got some user data, now lets show something with it', response)
