@@ -1,54 +1,73 @@
 <template>
   <div id="app">
-    <md-toolbar class="md-primary md-layout">
-      <div class="md-layout-item">
+    <md-toolbar class="md-primary md-layout space-between">
+      <div class=md-layout-item>
+        <md-menu class="main-menu">
+          <md-button class="md-icon-button" md-menu-trigger>
+            <md-icon>menu</md-icon>
+          </md-button>
+          <md-menu-content>
+            <router-link class="md-title" to="/">
+              <md-menu-item>
+                <md-icon>home</md-icon>
+                <span>Home</span>
+              </md-menu-item>
+            </router-link>
+            <router-link class="md-title" to="/blog">
+              <md-menu-item>
+                <md-icon>forum</md-icon>
+                <span>Blog</span>
+              </md-menu-item>
+            </router-link>
+            <router-link class="md-title" to="/services">
+              <md-menu-item>
+                <md-icon>supervisor_account</md-icon>
+                <span>Services</span>
+              </md-menu-item>
+            </router-link>
+            <router-link class="md-title" to="/contact">
+              <md-menu-item>
+                <md-icon>contact_support</md-icon>
+                <span>Contact Us</span>
+              </md-menu-item>
+            </router-link>
+          </md-menu-content>
+        </md-menu>
+      </div>
+      <div class="md-layout-item md-medium-size-50 md-small-hide">
         <li class="nav-item">
-          <router-link class="nav-link" to="/">Home</router-link>
+          <router-link class="md-title" to="/">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/blog">Blog</router-link>
+          <router-link class="md-title" to="/blog">Blog</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/services">Services</router-link>
+          <router-link class="md-title" to="/services">Services</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/contact">contact</router-link>
+          <router-link class="md-title" to="/contact">contact</router-link>
         </li>
       </div>
-        <div class="md-layout-item">
-          <h3>LAURERLE</h3>
-        </div>
-        <div class="md-layout-item">
-          <div class="md-layout">
-            <div class="md-layout-item">
-              <div class="md-layout md-medium-size-50 md-small-size-50 md-xsmall-hide">
-                <div class="md-layout-item">
-                  <md-button class="">Default</md-button>
-                </div>
-                <div class="md-layout-item">
-                  <md-button class="md-raised md-accent">Acceder</md-button>
-                </div>
-              </div>
-            </div>
-            <div class="md-layout-item">
-              <md-menu md-size="big" md-direction="bottom-end">
-              <md-button class="md-icon-button" md-menu-trigger>
-                <md-icon>near_me</md-icon>
-              </md-button>
-              <md-menu-content>
-                <md-menu-item>
-                  <span>Find on map</span>
-                  <md-icon>near_me</md-icon>
-                </md-menu-item>
-                <md-menu-item>
-                  <span>Call</span>
-                  <md-icon>phone</md-icon>
-                </md-menu-item>
-              </md-menu-content>
-            </md-menu>
-            </div>
-          </div>
-        </div>
+      <div class="md-layout-item">
+        <h3 class="md-title">LAUREL</h3>
+      </div>
+      <div class="md-layout-item">
+        <md-menu md-size="big" md-direction="bottom-end">
+        <md-button class="md-icon-button" md-menu-trigger>
+          <md-icon>near_me</md-icon>
+        </md-button>
+        <md-menu-content>
+          <md-menu-item>
+            <span>Administracion</span>
+            <md-icon>near_me</md-icon>
+          </md-menu-item>
+          <md-menu-item>
+            <span>Acceder</span>
+            <md-icon>phone</md-icon>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      </div>
     </md-toolbar>
     <router-view/>
     <div class="footer">
@@ -62,7 +81,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+// @import "./styles/global.scss";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -91,4 +111,14 @@ li {
 h3 {
   color: #42b983;
 }
+.main-menu {
+  display: none;
+}
+
+@media screen and (min-width: 0px) and (max-width: 960px) {
+  .main-menu {
+    display: block;
+  }
+}
+
 </style>

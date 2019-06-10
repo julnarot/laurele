@@ -11,15 +11,25 @@ import VueResource from 'vue-resource'
 // end is not recomended
 // Vue.use(VueMaterial)
 
-import { MdButton, MdContent, MdTabs, MdToolbar, MdMenu } from 'vue-material/dist/components'
+import {
+  MdButton,
+  MdContent,
+  // MdTabs,
+  MdToolbar,
+  MdMenu,
+  MdIcon,
+  MdList
+} from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
 Vue.use(MdButton)
 Vue.use(MdContent)
-Vue.use(MdTabs)
+// Vue.use(MdTabs)
 Vue.use(MdToolbar)
 Vue.use(MdMenu)
+Vue.use(MdIcon)
+Vue.use(MdList)
 
 Vue.use(Vuex)
 // Vue.use(VueAxios)
