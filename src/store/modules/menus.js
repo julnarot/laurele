@@ -1,10 +1,16 @@
 // initial state
+import Data from '../../util/mocks'
 const state = {
-  all: []
+  all: [],
+  basicMenu: Data.mainMenu
 }
 
 // getters
-const getters = {}
+const getters = {
+  getMenu: function (state) {
+    return state.basicMenu
+  }
+}
 
 // actions
 const actions = {}

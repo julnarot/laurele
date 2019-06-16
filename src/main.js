@@ -5,6 +5,13 @@ import App from './App'
 import router from './router'
 import store from './store/index'
 
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+
+import './styles/global.scss' // This line here
+
+Vue.use(VueMaterial)
+// Vue.material.setCurrentTheme('default')
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({

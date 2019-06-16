@@ -5,11 +5,9 @@
 const path = require('path')
 
 module.exports = {
-  pluginOptions: {
-    "style-resources-loader": {
-      preProcessor: "scss",
-      patterns: [path.resolve(__dirname, "./src/styles/global.scss")]
-    }
+  chainWebpack: config => {
+    const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
+    types.forEach(type => addStyleResource(config.module.rule('sass').oneOf(type)))
   },
   dev: {
 
@@ -79,4 +77,14 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   }
+}
+
+function addStyleResource (rule) {
+  rule.use('style-resource')
+    .loader('style-resources-loader')
+    .options({
+      patterns: [
+        path.resolve(__dirname, './src/styles/global.scss'),
+      ],
+    })
 }

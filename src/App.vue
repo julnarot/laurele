@@ -16,19 +16,19 @@
             <router-link class="md-title" to="/blog">
               <md-menu-item>
                 <md-icon>forum</md-icon>
-                <span>Blog</span>
+                <span>¿Quienes somos?</span>
               </md-menu-item>
             </router-link>
             <router-link class="md-title" to="/services">
               <md-menu-item>
                 <md-icon>supervisor_account</md-icon>
-                <span>Services</span>
+                <span>Nuestas obras</span>
               </md-menu-item>
             </router-link>
             <router-link class="md-title" to="/contact">
               <md-menu-item>
                 <md-icon>contact_support</md-icon>
-                <span>Contact Us</span>
+                <span>Contacto</span>
               </md-menu-item>
             </router-link>
           </md-menu-content>
@@ -39,13 +39,13 @@
           <router-link class="md-title" to="/">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="md-title" to="/blog">Blog</router-link>
+          <router-link class="md-title" to="/blog">¿Quienes somos?</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="md-title" to="/services">Services</router-link>
+          <router-link class="md-title" to="/services">Nuestas obras</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="md-title" to="/contact">contact</router-link>
+          <router-link class="md-title" to="/contact">Contacto</router-link>
         </li>
       </div>
       <div class="md-layout-item">
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import "./styles/global.scss";
+ @import "./styles/global.scss";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -92,7 +92,7 @@ export default {
   /*margin-top: 60px;*/
 }
 .footer{
-  background: #2c3e50;
+  background: $main-bg-color;
   color: azure;
 }
 
