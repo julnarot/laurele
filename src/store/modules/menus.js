@@ -1,8 +1,11 @@
 // initial state
+import axios from 'axios'
+import utils from '../../util/config'
 import Data from '../../util/mocks'
 const state = {
   all: [],
-  basicMenu: Data.mainMenu
+  basicMenu: Data.mainMenu,
+  menuList: []
 }
 
 // getters
@@ -13,10 +16,25 @@ const getters = {
 }
 
 // actions
-const actions = {}
+const actions = {
+  obtainMenu () {
+    axios.get(utils.endPointJcms + utils.endPoint.setup.menu)
+      .then((response) => {
+        console.log('getting Menu', response)
+        this.commit('updateMenu', response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
 
 // mutations
-const mutations = {}
+const mutations = {
+  updateMenu (state, newMenu) {
+    state.menuList = newMenu
+  }
+}
 
 export default {
   namespaced: true,

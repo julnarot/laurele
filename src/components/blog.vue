@@ -1,17 +1,12 @@
 <template>
   <div class="blog">
     <h1>Blog{{msg}}</h1>
+    <button @click="saludo()">Button</button>
     <h4><b>Contador{{contador}}</b></h4>
     <button type="submit" @click="increment()">incrementar</button>
     <button type="submit" @click="decrement()">-</button>
     <!--input @input="increment" name="flavor"-->
     <input v-model="numero" v-bind:placeholder="placeholder">
-    <br>
-    <div v-if="onSession">
-      <input  type="text" v-model="username" placeholder="usuario">
-      <input type="password" v-model="password" placeholder="password">
-      <md-button class="md-raised md-accent" @click="login()">Login</md-button>
-    </div>
   </div>
 </template>
 <script>
@@ -21,9 +16,7 @@ export default {
     return {
       msg: 'Blog!!',
       numero: '',
-      placeholder: 'Número',
-      username: '',
-      password: ''
+      placeholder: 'Número'
       // onSession: false,
     }
   },
@@ -51,27 +44,11 @@ export default {
           this.placeholder = 'Número'
         }, 2000)
       }
-    },
-    login () {
-      this.$store.dispatch('interceptor/obtainToken', {username: this.username, password: this.password})
-        .then(response => {
-          // console.log(response.data) // shows the user data good stuff
-          console.log('Got some user data, now lets show something with it', response)
-        }, () => {
-          // console.log(error.response) // shows the API error invalid credentials type junk
-          console.log('Got nothing for this user except bad news.')
-        })
     }
-  },
-  isLoged: function () {
-    this.onSession = this.$store.getters['interceptor/isLoged']
   },
   computed: {
     contador: function () {
       return this.$store.getters['interceptor/obtenerContador']
-    },
-    onSession: function () {
-      return !this.$store.getters['interceptor/isLoged']
     }
   }
 }

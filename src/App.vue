@@ -61,15 +61,46 @@
             <span>Administracion</span>
             <md-icon>near_me</md-icon>
           </md-menu-item>
-          <md-menu-item>
+          <md-menu-item v-if="onSession" @click="showDialog = true">
             <span>Acceder</span>
-            <md-icon>phone</md-icon>
+            <md-icon>input</md-icon>
+          </md-menu-item>
+          <md-menu-item v-if="!onSession" @click="closeSession()">
+            <span>Cerrar sesion</span>
+            <md-icon>logout</md-icon>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
       </div>
     </md-toolbar>
     <router-view/>
+    <md-dialog :md-active.sync="showDialog">
+      <md-dialog-title>Inicio de sesion</md-dialog-title>
+      <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+              <md-field>
+                <label for="username">Username</label>
+                <md-input name="username" id="username" autocomplete="username" v-model="form.username"/>
+                <md-icon>keyboard_voice</md-icon>
+                <!--span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
+                <span class="md-error" v-else-if="!$v.form.firstName.minlength">Invalid first name</span-->
+              </md-field>
+            </div>
+            <div class="md-layout-item md-small-size-100">
+              <md-field>
+                <label for="last-name">Password</label>
+                <md-input type="password" name="password" id="password" autocomplete="password" v-model="form.password"/>
+                <!--md-icon>keyboard_voice</md-icon-->
+                <!--span class="md-error" v-if="!$v.form.lastName.required">The last name is required</span>
+                <span class="md-error" v-else-if="!$v.form.lastName.minlength">Invalid last name</span-->
+              </md-field>
+            </div>
+          </div>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+        <md-button class="md-primary" @click="login()">Login</md-button>
+      </md-dialog-actions>
+    </md-dialog>
     <div class="footer">
       <h1>footer</h1>
     </div>
@@ -77,7 +108,41 @@
 </template>
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data: () => ({
+    showDialog: false,
+    form: {
+      username: null,
+      password: null
+    }
+  }),
+  methods: {
+    login () {
+      const params = {
+        username: this.form.username,
+        password: this.form.password
+      }
+      this.$store.dispatch('interceptor/obtainToken', params)
+        .then(response => {
+          setTimeout(() => {
+            if (!this.onSession) {
+              this.showDialog = false
+            }
+          }, 2000)
+        }, () => {
+          console.log('Got nothing for this user except bad news.')
+        })
+    },
+    closeSession () {
+      // !! make a transaction to kill token on backend
+      this.$store.dispatch('interceptor/closeSession')
+    }
+  },
+  computed: {
+    onSession: function () {
+      return !this.$store.getters['interceptor/isLoged']
+    }
+  }
 }
 </script>
 

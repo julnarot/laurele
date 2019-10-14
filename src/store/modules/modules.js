@@ -12,9 +12,8 @@ const getters = {}
 
 const actions = {
   obtainModule () {
-    axios.get(utils.apiPath + utils.endPoint.setup.modules + utils.appIdModule + '/')
+    axios.get(utils.apiPath + utils.endPointJcms.setup.modules + utils.appIdModule + '/content/')
       .then((response) => {
-        console.log('getting module', response)
         this.commit('updateModule', response.data.token)
       })
       .catch((error) => {

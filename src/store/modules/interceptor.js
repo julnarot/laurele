@@ -7,8 +7,8 @@ import config from '../../util/config'
 const state = {
   jwt: localStorage.getItem('t'),
   endpoints: {
-    obtainJWT: config.apiPath + config.endPoint.auth.obtainToken,
-    refreshJWT: config.apiPath + config.endPoint.auth.refleshToken
+    obtainJWT: config.apiPath + config.endPointJcms.auth.obtainToken,
+    refreshJWT: config.apiPath + config.endPointJcms.auth.refleshToken
   },
   contador: 1
 }
@@ -47,6 +47,9 @@ const actions = {
         console.log(error)
       })
   },
+  closeSession () {
+    this.commit('interceptor/removeToken')
+  },
   refreshToken () {
     const payload = {
       token: this.state.interceptor.jwt
@@ -56,7 +59,7 @@ const actions = {
         this.commit('interceptor/updateToken', response.data.token)
       })
       .catch((error) => {
-        console.log(error)
+        console.log('loginFile', error)
       })
   }
   /* inspectToken () {
@@ -87,6 +90,7 @@ const mutations = {
   removeToken (state) {
     localStorage.removeItem('t')
     state.jwt = null
+    // this.state.isLoged(state)
   },
   incrementByValue (state, valor) {
     state.contador += valor
