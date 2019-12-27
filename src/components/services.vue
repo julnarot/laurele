@@ -14,22 +14,10 @@
                   <td>{{ data.id }}</td>
                   <td>{{ data.name }}</td>
                   <!--td><img v-bind:src="data.owner.avatar_url" /></td-->
+                  <td><img v-bind:src="data.owner.avatar_url"  width="50" height="50"/></td>
               </tr>
             </tbody>
     </table>
-    <div v-for="(data,index) in repositories" :key="index">
-      <div>
-        <div v-if="data.owner">
-          <img v-bind:src="{{ data.owner.avatar_url }}" alt="Skyscraper">
-        </div>
-
-        <div>
-            <span class="md-title">{{ data.name }}</span>
-            <span class="md-subhead">{{ data.id }}</span>
-
-        </div>
-      </div>
-    </div>
     <md-progress-spinner v-if="repositoriesLoader"
     :md-diameter="100" :md-stroke="10" md-mode="indeterminate"></md-progress-spinner>
   </div>
