@@ -5,6 +5,7 @@ import Blog from '@/components/blog'
 import Contact from '@/components/contact'
 import Services from '@/components/services'
 import Details from '@/components/details'
+import NotFound from '@/components/notfound'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -28,6 +29,9 @@ export default new Router({
       path: '/details/:Pid',
       name: 'details',
       component: Details
+    }, {
+      path: '*',
+      component: NotFound
     }
   ]
 })

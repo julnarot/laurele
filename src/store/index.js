@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import menus from './modules/menus'
 import modules from './modules/modules'
 import interceptor from './modules/interceptor'
+import content from './modules/content'
 import repositories from './external/repositories'
 import VueResource from 'vue-resource'
 
@@ -43,6 +44,7 @@ export default new Vuex.Store({
     menus,
     modules,
     interceptor,
-    repositories
+    repositories,
+    content
   }
 })

@@ -1,52 +1,28 @@
 <template>
   <div id="app">
+    
     <md-toolbar class="md-primary md-layout space-between">
       <div class=md-layout-item>
         <md-menu class="main-menu">
           <md-button class="md-icon-button" md-menu-trigger>
             <md-icon>menu</md-icon>
           </md-button>
-          <md-menu-content>
-            <router-link class="md-title" to="/">
-              <md-menu-item>
-                <md-icon>home</md-icon>
-                <span>Home</span>
-              </md-menu-item>
-            </router-link>
-            <router-link class="md-title" to="/blog">
-              <md-menu-item>
-                <md-icon>forum</md-icon>
-                <span>¿Quienes somos?</span>
-              </md-menu-item>
-            </router-link>
-            <router-link class="md-title" to="/services">
-              <md-menu-item>
-                <md-icon>supervisor_account</md-icon>
-                <span>Nuestas obras</span>
-              </md-menu-item>
-            </router-link>
-            <router-link class="md-title" to="/contact">
-              <md-menu-item>
-                <md-icon>contact_support</md-icon>
-                <span>Contacto</span>
-              </md-menu-item>
-            </router-link>
+          <md-menu-content>            
+            <div v-for="item in pageMenus" v-bind:key="item.id">
+              <router-link class="md-title" v-bind:to="item.path" >
+                <md-menu-item>
+                  <md-icon>home</md-icon>
+                  <span>{{item.menu_name}}</span>
+                </md-menu-item>
+              </router-link>
+            </div>
           </md-menu-content>
         </md-menu>
       </div>
       <div class="md-layout-item md-medium-size-50 md-small-hide">
-        <li class="nav-item">
-          <router-link class="md-title" to="/">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="md-title" to="/blog">¿Quienes somos?</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="md-title" to="/services">Nuestas obras</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="md-title" to="/contact">Contacto</router-link>
-        </li>
+        <li class="nav-item" v-for="item in pageMenus" v-bind:key="item.id">
+          <router-link class="md-title" v-bind:to="item.path" >{{item.menu_name}}</router-link>
+        </li>      
       </div>
       <div class="md-layout-item">
         <h3 class="md-title">LAUREL</h3>
@@ -136,11 +112,20 @@ export default {
     closeSession () {
       // !! make a transaction to kill token on backend
       this.$store.dispatch('interceptor/closeSession')
+    },
+    fetchMenuPage () {
+      this.$store.dispatch('modules/obtainPageMenuModule')
     }
+  },
+  created () {
+    this.fetchMenuPage()
   },
   computed: {
     onSession: function () {
       return !this.$store.getters['interceptor/isLoged']
+    },
+    pageMenus: function () {
+      return this.$store.getters['modules/getPageMenu']
     }
   }
 }
