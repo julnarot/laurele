@@ -14,6 +14,7 @@
                   <td>{{ data.id }}</td>
                   <td>{{ data.name }}</td>
                   <!--td><img v-bind:src="data.owner.avatar_url" /></td-->
+                  <td><img v-bind:src="data.owner.avatar_url"  width="50" height="50"/></td>
               </tr>
             </tbody>
     </table>
