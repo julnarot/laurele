@@ -1,15 +1,14 @@
 <template>
   <div id="app">
-    
     <md-toolbar class="md-primary md-layout space-between">
       <div class=md-layout-item>
         <md-menu class="main-menu">
           <md-button class="md-icon-button" md-menu-trigger>
             <md-icon>menu</md-icon>
           </md-button>
-          <md-menu-content>            
+          <md-menu-content style="text-align: center;">
             <div v-for="item in pageMenus" v-bind:key="item.id">
-              <router-link class="md-title" v-bind:to="item.path" >
+              <router-link class="md-title" v-bind:to="item.path">
                 <md-menu-item>
                   <md-icon>home</md-icon>
                   <span>{{item.menu_name}}</span>
@@ -22,7 +21,7 @@
       <div class="md-layout-item md-medium-size-50 md-small-hide">
         <li class="nav-item" v-for="item in pageMenus" v-bind:key="item.id">
           <router-link class="md-title" v-bind:to="item.path" >{{item.menu_name}}</router-link>
-        </li>      
+        </li>
       </div>
       <div class="md-layout-item">
         <h3 class="md-title">LAUREL</h3>
@@ -49,7 +48,9 @@
       </md-menu>
       </div>
     </md-toolbar>
-    <router-view/>
+    <md-content class="md-scrollbar" v-bind:style="jota">
+      <router-view/>
+    </md-content>
     <md-dialog :md-active.sync="showDialog">
       <md-dialog-title>Inicio de sesion</md-dialog-title>
       <div class="md-layout md-gutter">
@@ -82,10 +83,14 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'App',
   data: () => ({
+    jota: {
+      'max-height': (window.innerHeight.toString() - 124) + 'px'
+    },
     showDialog: false,
     form: {
       username: null,
@@ -99,7 +104,7 @@ export default {
         password: this.form.password
       }
       this.$store.dispatch('interceptor/obtainToken', params)
-        .then(response => {
+        .then(() => {
           setTimeout(() => {
             if (!this.onSession) {
               this.showDialog = false
@@ -137,10 +142,13 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   /*margin-top: 60px;*/
 }
+ .md-content {
+   max-width: 100%;
+   overflow: auto;
+ }
 .footer{
   background: $main-bg-color;
   color: azure;

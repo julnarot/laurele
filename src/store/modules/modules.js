@@ -3,6 +3,7 @@ import axios from 'axios'
 import utils from '../../util/config'
 const state = {
   module: {},
+  pageData: {},
   pageMenus: [{
     id: null,
     menu: null,
@@ -24,7 +25,7 @@ const actions = {
   obtainModule () {
     axios.get(utils.apiPath + utils.endPointJcms.setup.modules + utils.appIdModule + '/content/')
       .then((response) => {
-        this.commit('modules/updateModule', response.data.token)
+        this.commit('modules/updateModule', response.data.result[3])
       })
       .catch((error) => {
         console.log(error)
@@ -33,7 +34,6 @@ const actions = {
   obtainPageMenuModule () {
     axios.get(utils.apiPath + utils.endPointJcms.setup.modules + utils.appIdModule + '/menu_page/')
       .then((response) => {
-        console.log(response.data.result)
         this.commit('modules/setPageMenuModule', response.data.result)
       })
       .catch((error) => {
@@ -46,6 +46,7 @@ const actions = {
 const mutations = {
   updateModule (state, newModule) {
     state.module = newModule
+    state.pageData = newModule
   },
   setPageMenuModule (state, data) {
     state.pageMenus = data

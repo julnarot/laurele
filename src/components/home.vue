@@ -1,65 +1,47 @@
 <template>
-  <div class="wrapper">
-  <input checked type=radio name="slider" id="slide1" />
-  <input type=radio name="slider" id="slide2" />
-  <input type=radio name="slider" id="slide3" />
-  <input type=radio name="slider" id="slide4" />
-  <input type=radio name="slider" id="slide5" />
+  <div>
+    <!--h1>{{page.name}}</h1-->
 
-  <div class="slider-wrapper">
-    <div class=inner>
-      <article>
-        <div class="info top-left">
-          <h3>Malacca</h3></div>
-        <img src="https://farm9.staticflickr.com/8059/28286750501_dcc27b1332_h_d.jpg" />
-      </article>
+    <div v-for="(item) in page.sections" v-bind:key="item.id">
+      <div v-if="item.content &&  item.content.length>0">
+        <span class="md-body-2">{{item.name}}</span>
+      </div>
+      <div v-if="item.content &&  item.content.length>0" class="flex-container wrap">
+        <div v-for="(ite) in item.content" v-bind:key="ite.id">
+          <div class="flex-item">
+            <md-card v-if="item.code ==='9'">
+              <md-card-media>
+                <img src="https://www.programetineret.ro/wp-content/uploads/2016/06/old-book-desktop-wallpapers-44-320x240.jpeg" alt="People">
+              </md-card-media>
+              <md-card-content>
+                {{ite.name}}
+              </md-card-content>
+            </md-card>
+            <div v-else-if="item.code ==='4'">
+                <md-avatar class="md-large">
+                  <img src="https://www.programetineret.ro/wp-content/uploads/2016/06/old-book-desktop-wallpapers-4-65x65.jpeg" alt="People">
+                </md-avatar>
+              <span class="md-body-2">{{ite.name}}</span>
+            </div>
+            <div v-else>
+              <span>{{ite.name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <article>
-        <div class="info bottom-right">
-          <h3>Cameron Highland</h3></div>
-        <img src="https://farm6.staticflickr.com/5812/23394215774_b76cd33a87_h_d.jpg" />
-      </article>
-
-      <article>
-        <div class="info bottom-left">
-          <h3>New Delhi</h3></div>
-        <img src="https://farm8.staticflickr.com/7455/27879053992_ef3f41c4a0_h_d.jpg" />
-      </article>
-
-      <article>
-        <div class="info top-right">
-          <h3>Ladakh</h3></div>
-        <img src="https://farm8.staticflickr.com/7367/27980898905_72d106e501_h_d.jpg" />
-      </article>
-
-      <article>
-        <div class="info bottom-left">
-          <h3>Nubra Valley</h3></div>
-        <img src="https://farm8.staticflickr.com/7356/27980899895_9b6c394fec_h_d.jpg" />
-      </article>
-    </div>
-    <!-- .inner -->
-  </div>
-  <!-- .slider-wrapper -->
-
-  <div class="slider-prev-next-control">
-    <label for=slide1></label>
-    <label for=slide2></label>
-    <label for=slide3></label>
-    <label for=slide4></label>
-    <label for=slide5></label>
-  </div>
-  <!-- .slider-prev-next-control -->
-
-  <div class="slider-dot-control">
-    <label for=slide1></label>
-    <label for=slide2></label>
-    <label for=slide3></label>
-    <label for=slide4></label>
-    <label for=slide5></label>
-  </div>
-  <!-- .slider-dot-control -->
-</div>
+          <!--div class="flex-container wrap">
+            <md-card class="flex-item">
+              <md-card-media>
+                <img src="https://www.programetineret.ro/wp-content/uploads/2016/06/old-book-desktop-wallpapers-44-320x240.jpeg" alt="People">
+              </md-card-media>
+              <md-card-content>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea nostrum.
+              </md-card-content>
+            </md-card>
+          </div-->
+        </div>
+      </div>
 </template>
 <script>
 export default {
@@ -74,15 +56,14 @@ export default {
       this.$router.push({name: 'details', params: {Pid: proId}})
     },
     getModule () {
-      // console.log('gettingzzzzzz', this.$store)
       this.$store.dispatch('modules/obtainModule')
-      /* .then(response => {
-          // console.log(response.data) // shows the user data good stuff
-          console.log('Got some user data, now lets show something with it', response)
-        }, () => {
-          // console.log(error.response) // shows the API error invalid credentials type junk
-          console.log('Got nothing for this user except bad news.')
-        }) */
+    }
+  },
+  computed: {
+    page () {
+      console.log('pageCurrent', this.$store.state.modules.pageData)
+      return this.$store.state.modules.pageData
+      // return '12'
     }
   },
   beforeMount () {
@@ -95,194 +76,36 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
-  .wrapper {
-  max-width: 100%;
-  margin: 1em auto;
-  position: relative;
-}
-
-input {
-  display: none;
-}
-
-.inner {
-  width: 280%;
-  line-height: 0;
-}
-
-@media only screen and (max-width: 600px) {
-  .inner {
-    width: 1100%;
-  }
-}
-
-article {
-  width: 20%;
-  float: left;
-  position: relative;
-}
-article img {
-  width: 100%;
-}
-
-/*---- SET UP CONTROL ----*/
-.slider-prev-next-control {
-  height: 50px;
-  position: absolute;
-  top: 50%;
-  width: 100%;
-}
-.slider-prev-next-control label {
-  display: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #fff;
-  opacity: 0.7;
-}
-.slider-prev-next-control label:hover {
-  opacity: 1;
-}
-
-.slider-dot-control {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  text-align: center;
-}
-.slider-dot-control label {
-  cursor: pointer;
-  border-radius: 5px;
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background: #bbb;
-}
-.slider-dot-control label:hover {
-  background: #ccc;
-  border-color: #777;
-}
-
-/* Info Box */
-.info {
-  position: absolute;
-  font-style: italic;
-  line-height: 20px;
-  opacity: 0;
-  color: #000;
-  text-align: left;
-}
-.info h3 {
-  color: #fcfff4;
-  margin: 0 0 5px;
-  font-weight: normal;
-  font-size: 1.5em;
-  font-style: normal;
-}
-.info.top-left {
-  top: 30px;
-  left: 30px;
-}
-.info.top-right {
-  top: 30px;
-  right: 30px;
-}
-.info.bottom-left {
-  bottom: 30px;
-  left: 30px;
-}
-.info.bottom-right {
-  bottom: 30px;
-  right: 30px;
-}
-
-/* Slider Styling */
-.slider-wrapper {
-  width: 100%;
-  overflow: hidden;
-  border-radius: 5px;
-  box-shadow: 1px 1px 4px #666;
-  background: #fff;
-  background: #fcfff4;
-}
-
-/*---- SET POSITION FOR SLIDE ----*/
-#slide1:checked ~ .slider-prev-next-control label:nth-child(5)::after, #slide5:checked ~ .slider-prev-next-control label:nth-child(4)::after, #slide4:checked ~ .slider-prev-next-control label:nth-child(3)::after, #slide3:checked ~ .slider-prev-next-control label:nth-child(2)::after, #slide2:checked ~ .slider-prev-next-control label:nth-child(1)::after, #slide5:checked ~ .slider-prev-next-control label:nth-child(1)::after, #slide4:checked ~ .slider-prev-next-control label:nth-child(5)::after, #slide3:checked ~ .slider-prev-next-control label:nth-child(4)::after, #slide2:checked ~ .slider-prev-next-control label:nth-child(3)::after, #slide1:checked ~ .slider-prev-next-control label:nth-child(2)::after {
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: inherit;
-  margin: 0;
-  line-height: 38px;
-  font-size: 3em;
-  display: block;
-  color: #777;
-}
-
-#slide5:checked ~ .slider-prev-next-control label:nth-child(1)::after, #slide4:checked ~ .slider-prev-next-control label:nth-child(5)::after, #slide3:checked ~ .slider-prev-next-control label:nth-child(4)::after, #slide2:checked ~ .slider-prev-next-control label:nth-child(3)::after, #slide1:checked ~ .slider-prev-next-control label:nth-child(2)::after {
-  content: "";
-  padding-left: 15px;
-}
-
-#slide5:checked ~ .slider-prev-next-control label:nth-child(1), #slide4:checked ~ .slider-prev-next-control label:nth-child(5), #slide3:checked ~ .slider-prev-next-control label:nth-child(4), #slide2:checked ~ .slider-prev-next-control label:nth-child(3), #slide1:checked ~ .slider-prev-next-control label:nth-child(2) {
-  display: block;
-  float: right;
-  margin-right: 5px;
-}
-
-#slide1:checked ~ .slider-prev-next-control label:nth-child(5), #slide5:checked ~ .slider-prev-next-control label:nth-child(4), #slide4:checked ~ .slider-prev-next-control label:nth-child(3), #slide3:checked ~ .slider-prev-next-control label:nth-child(2), #slide2:checked ~ .slider-prev-next-control label:nth-child(1) {
-  display: block;
-  float: left;
-  margin-left: 5px;
-}
-
-#slide1:checked ~ .slider-prev-next-control label:nth-child(5)::after, #slide5:checked ~ .slider-prev-next-control label:nth-child(4)::after, #slide4:checked ~ .slider-prev-next-control label:nth-child(3)::after, #slide3:checked ~ .slider-prev-next-control label:nth-child(2)::after, #slide2:checked ~ .slider-prev-next-control label:nth-child(1)::after {
-  content: "";
-  padding-left: 8px;
-}
-
-#slide5:checked ~ .slider-dot-control label:nth-child(5), #slide4:checked ~ .slider-dot-control label:nth-child(4), #slide3:checked ~ .slider-dot-control label:nth-child(3), #slide2:checked ~ .slider-dot-control label:nth-child(2), #slide1:checked ~ .slider-dot-control label:nth-child(1) {
-  background: #333;
-}
-
-#slide5:checked ~ .slider-wrapper article:nth-child(5) .info, #slide4:checked ~ .slider-wrapper article:nth-child(4) .info, #slide3:checked ~ .slider-wrapper article:nth-child(3) .info, #slide2:checked ~ .slider-wrapper article:nth-child(2) .info, #slide1:checked ~ .slider-wrapper article:nth-child(1) .info {
-  opacity: 1;
-}
-
-#slide1:checked ~ .slider-wrapper .inner {
-  margin-left: 0%;
-}
-#slide2:checked ~ .slider-wrapper .inner {
-  margin-left: -100%;
-}
-#slide3:checked ~ .slider-wrapper .inner {
-  margin-left: -200%;
-}
-#slide4:checked ~ .slider-wrapper .inner {
-  margin-left: -300%;
-}
-#slide5:checked ~ .slider-wrapper .inner {
-  margin-left: -400%;
-}
-/*---- TABLET ----*/
-@media only screen and (max-width: 850px) and (min-width: 450px) {
-  .slider-wrapper {
-    border-radius: 0;
-  }
-}
-/*---- MOBILE----*/
-@media only screen and (max-width: 450px) {
-  .slider-wrapper {
-    border-radius: 0;
+  .flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    // border: 1px solid silver;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
   }
 
-  .slider-wrapper .info {
-    opacity: 0;
+  .wrap    {
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
   }
-}
-@media only screen and (min-width: 850px) {
-  body {
-    padding: 0 80px;
+
+  .flex-item {
+    // background: green;
+    padding: 5px;
+    width: 320px;
+    margin: 4px;
+    // margin: 10px;
+
+    line-height: 100px;
+    // color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
   }
-}
 </style>
