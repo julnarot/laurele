@@ -9,7 +9,7 @@
           <md-menu-content style="text-align: center;">
             <div v-for="item in pageMenus" v-bind:key="item.id">
               <router-link class="md-title" v-bind:to="item.path">
-                <md-menu-item>
+                <md-menu-item @click="onSelectMenu(item.id)">
                   <md-icon>home</md-icon>
                   <span>{{item.menu_name}}</span>
                 </md-menu-item>
@@ -120,6 +120,10 @@ export default {
     },
     fetchMenuPage () {
       this.$store.dispatch('modules/obtainPageMenuModule')
+    },
+    onSelectMenu (id) {
+      const params = {id: id}
+      this.$store.dispatch('menus/selectMenu', params)
     }
   },
   created () {

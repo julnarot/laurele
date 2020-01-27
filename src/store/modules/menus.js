@@ -2,10 +2,12 @@
 import axios from 'axios'
 import utils from '../../util/config'
 import Data from '../../util/mocks'
+
 const state = {
   all: [],
   basicMenu: Data.mainMenu,
-  menuList: []
+  menuList: [],
+  currentPage: ''
 }
 
 // getters
@@ -26,6 +28,15 @@ const actions = {
       .catch((error) => {
         console.log(error)
       })
+  },
+  selectMenu (context, {id}) {
+    axios.get(utils.apiPath + utils.endPointJcms.setup.pages + id + '/contenido/')
+      .then((response) => {
+        this.commit('menus/updatePage', response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 }
 
@@ -33,6 +44,9 @@ const actions = {
 const mutations = {
   updateMenu (state, newMenu) {
     state.menuList = newMenu
+  },
+  updatePage (state, newPage) {
+    state.currentPage = newPage
   }
 }
 

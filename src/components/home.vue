@@ -1,8 +1,10 @@
 <template>
   <div>
     <!--h1>{{page.name}}</h1-->
+    <section />
 
-    <div v-for="(item) in page.sections" v-bind:key="item.id">
+    <div v-for="(item) in page" v-bind:key="item.id">
+      <h3>{{item.name}}</h3>
       <div v-if="item.content &&  item.content.length>0">
         <span class="md-body-2">{{item.name}}</span>
       </div>
@@ -44,6 +46,7 @@
       </div>
 </template>
 <script>
+import section from './home/section'
 export default {
   name: 'home',
   data () {
@@ -56,20 +59,21 @@ export default {
       this.$router.push({name: 'details', params: {Pid: proId}})
     },
     getModule () {
-      this.$store.dispatch('modules/obtainModule')
+      // this.$store.dispatch('modules/obtainModule')
     }
   },
   computed: {
     page () {
-      console.log('pageCurrent', this.$store.state.modules.pageData)
-      return this.$store.state.modules.pageData
-      // return '12'
+      return this.$store.state.menus.currentPage
     }
   },
   beforeMount () {
   },
   created () {
     this.getModule()
+  },
+  component: {
+    section
   }
 }
 </script>
