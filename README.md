@@ -1,6 +1,6 @@
 # laurel
 
-> aplicacion informativa
+> aplicacion informativa,aplica uso de axioa routing y lazy loading 
 
 ## Build Setup
 
